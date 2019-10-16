@@ -20,7 +20,6 @@ def round(x, d=0):
 
 # numpy
 def as_ndarray(target):
-    # print(target, type(target))
     if isinstance(target, np.ndarray):
         return target
 
