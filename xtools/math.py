@@ -13,9 +13,22 @@ def r2d(r):
         return [r2d(re) for re in r]
     return r * 180 / np.pi
 
-def round(x, d=0):
+def __round(x, d=0):
     p = 10 ** d
     return float(np.floor((x * p) + np.copysign(0.5, x))) / p
+
+def round(x, d=0):
+    if hasattr(x, "__len__"):
+        if isinstance(x, list):
+            return [
+                __round(xi, d) for xi in x
+            ]
+        if isinstance(x, np.ndarray):
+            return np.array([
+                __round(xi, d) for xi in x
+            ])
+        raise ValueError("Not supported type: {} is given.".format(type(x)) )
+    return __round(x, d)
 
 
 # numpy
