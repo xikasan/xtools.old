@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import os
+import datetime
 
 
 # path correction
@@ -18,3 +19,13 @@ def go_to_root(root_name=None, verbose=False):
 
     if verbose:
         print("[info] cwd:", os.getcwd())
+
+
+def join(*args):
+    return os.path.join(*args)
+
+def generate_time_dir_path(path=None, format="%Y.%m.%d.%H%M%S"):
+    if path is None:
+        path = os.getcwd()
+    now = datetime.datetime.now().strftime(format)
+    return join(path, now)
