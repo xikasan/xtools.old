@@ -8,24 +8,31 @@ def d2r(d):
         return [d2r(de) for de in d]
     return d * np.pi / 180
 
+
 def r2d(r):
     if hasattr(r, "__len__"):
         return [r2d(re) for re in r]
     return r * 180 / np.pi
 
+
 def __round(x, d=0):
     p = 10 ** d
     return float(np.floor((x * p) + np.copysign(0.5, x))) / p
+
 
 def round(x, d=0):
     if hasattr(x, "__len__"):
         if isinstance(x, list):
             return [
-                __round(xi, d) for xi in x
+                round(xi, d) for xi in x
+            ]
+        if isinstance(x, tuple):
+            return [
+                round(xi, d) for xi in x
             ]
         if isinstance(x, np.ndarray):
             return np.array([
-                __round(xi, d) for xi in x
+                round(xi, d) for xi in x
             ])
         raise ValueError("Not supported type: {} is given.".format(type(x)) )
     return __round(x, d)
