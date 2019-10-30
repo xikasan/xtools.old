@@ -8,6 +8,7 @@ def rungekutta(f, dt, t0, x0):
     k4 = f(t0 + dt , x0 + dt  * k3)
     return (k1 + 2 * k2 + 2 * k3 + k4) / 6
 
+
 def no_time_rungekutta(fn, dt, x0):
     dt2 = dt / 2
     k1 = fn(x0)
