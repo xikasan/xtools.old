@@ -12,7 +12,7 @@ class TestDefaultModel(unittest.TestCase):
         var_name = "var"
 
         model = DefaultModel(1/50, name=model_name)
-        var_1 = model.new_variable(1)
+        var_1 = model._new_variable(1)
         self.assertEqual(var_1.dtype, tf.float32)
         self.assertEqual(var_1.numpy(), 1.)
 

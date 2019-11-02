@@ -1,7 +1,9 @@
 # coding: utf-8
 
+import gym
 import numpy as np
 import tensorflow as tf
+from cached_property import cached_property
 
 tk = tf.keras
 
@@ -14,12 +16,38 @@ class DefaultModel:
         self.dtype = dtype
 
         self.__variable_counter = 0
+        self.action_space = self.generate_inf_space(1)
+        self.observation_space = self.generate_inf_space(1)
 
     def __call__(self, action):
         raise NotImplementedError()
 
+    def step(self, action):
+        raise NotImplementedError()
+
     def reset(self):
         raise NotImplementedError()
+
+    @cached_property
+    def action_size(self):
+        return self.action_space.high.size
+
+    @cached_property
+    def observation_size(self):
+        return self.observation_space.high.size
+
+    @staticmethod
+    def generate_space(low, high):
+        high = np.array(high) if type(high) is list else high
+        low  = np.array(low)  if type(low)  is list else low
+        return gym.spaces.Box(high=high, low=low)
+
+    @staticmethod
+    def generate_inf_space(size):
+        high = np.array([ np.inf] * size)
+        low  = np.array([-np.inf] * size)
+        space = gym.spaces.Box(high, low)
+        return high, low, space
 
     def new_variable(self, value, name=None, dtype=None):
         dtype = dtype if dtype is not None else self.dtype
