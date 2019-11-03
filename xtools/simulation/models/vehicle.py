@@ -31,6 +31,7 @@ class Vehicle(DefaultModel):
             *args,
             max_velocity=5,
             init_position=xsim.ZeroInitializer(2),
+            range_position=[[-np.inf, np.inf], [-np.inf, np.inf]],
             tau_v=0.25,
             tau_T=0.50,
             **kwargs
@@ -52,8 +53,8 @@ class Vehicle(DefaultModel):
         self.action_space = self.generate_space(self.act_low, self.act_high)
 
         # observation space
-        self.obs_low  = np.array([-np.inf, -np.inf, 0, -np.pi])
-        self.obs_high = np.array([np.inf, np.inf, max_velocity, np.pi])
+        self.obs_low  = np.array([np.min(range_position[0]), np.min(range_position[1]), 0, -np.pi])
+        self.obs_high = np.array([np.max(range_position[0]), np.max(range_position[1]), max_velocity, np.pi])
         self.observation_space = self.generate_space(self.obs_low, self.obs_high)
 
     def __call__(self, action):
@@ -75,8 +76,12 @@ class Vehicle(DefaultModel):
         def A(T):
             cos = np.cos(T)
             sin = np.sin(T)
-            return np.identity(4) * np.array([cos, sin, -av, -aT])
-
+            return np.array([
+                [0, 0, cos, 0],
+                [0, 0, sin, 0],
+                [0, 0, -av, 0],
+                [0, 0, 0, -aT]
+            ]).T
         B = np.array([
             [ 0,  0],
             [ 0,  0],
@@ -107,12 +112,11 @@ class Vehicle(DefaultModel):
 
 
 if __name__ == '__main__':
-    model = Vehicle(1/50, name="Vehicle")
-    daction = np.array([1, np.pi*2])
-    print(daction)
-    print("==========")
-    for _ in range(50):
-        print(model.step(daction))
+    model = Vehicle(1/50, name="Vehicle", range_position=[[-10, 10], [-10, 10]])
+    daction = np.array([10, 0])
+    print("="*60)
+    for t in range(50 * 10):
+        print("step: {:04}".format(t), "state:", model.step(daction))
 
     # dummy_act = model.new_variable([1, 2])
     # for _ in range(10):
