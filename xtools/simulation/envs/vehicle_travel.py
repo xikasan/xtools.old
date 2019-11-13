@@ -45,8 +45,8 @@ class VehicleTravel(gym.Env):
 
         return self.get_obs(), reward, False, []
 
-    def reset(self):
-        self._target_position = self._target_initializer.get()
+    def reset(self, target_position=None):
+        self._target_position = self._target_initializer.get() if target_position is None else target_position
         return self.get_obs()
 
     def get_obs(self):
@@ -101,8 +101,11 @@ class VehicleTravel(gym.Env):
 
 if __name__ == '__main__':
     import time
+
+    target_position = np.array([50, 50])
+
     env = VehicleTravel()
-    env.reset()
+    env.reset(target_position)
 
     daction = np.array([5, np.pi/2])
 
