@@ -9,7 +9,6 @@ def d2r(d):
             return [d2r(de) for de in d]
         if isinstance(d, tuple):
             return (d2r(de) for de in d)
-    print(d)
     return d * np.pi / 180
 
 
