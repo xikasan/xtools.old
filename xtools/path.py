@@ -39,6 +39,6 @@ def generate_time_dir_path(path=None, format="%Y.%m.%d.%H%M%S"):
 
 
 def make_dirs_current_time(path=None, format="%Y.%m.%d.%H%M%S", exist_ok=True):
-    path = generate_time_dir_path(path)
+    path = generate_time_dir_path(path, format=format)
     mkdirs(path, exist_ok)
     return path
