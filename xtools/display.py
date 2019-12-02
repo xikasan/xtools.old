@@ -4,7 +4,7 @@
 def print_msg(kind, content, val=None):
     print("[{}]".format(kind), content, end="")
     if val is not None:
-        print(":", val)
+        print(":", val, end="")
     print("")
 
 
