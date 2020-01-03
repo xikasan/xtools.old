@@ -170,3 +170,15 @@ class ListReplayBuffer:
         return {
             key: vals[0:self.index] for key, vals in self._buf.items()
         }
+
+
+class Retriever:
+
+    def __init__(self, source):
+        self._source = source
+
+    def __call__(self, name, idx=None):
+        temp = self._source[name]
+        if idx is None:
+            return np.squeeze(temp)
+        return np.squeeze(temp[:, idx])
