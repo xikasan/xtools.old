@@ -98,7 +98,7 @@ class Vehicle(BaseModel):
         self._x = np.clip(next_x, self.obs_low, self.obs_high)
         return self.get_obs()
 
-    def get_obs(self):
+    def get_state(self):
         return self._x
 
     @staticmethod

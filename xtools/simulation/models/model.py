@@ -60,6 +60,9 @@ class DefaultModel:
     def reset(self):
         raise NotImplementedError()
 
+    def get_state(self):
+        raise NotImplementedError()
+
     @cached_property
     def action_size(self):
         return self.action_space.high.size
