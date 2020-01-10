@@ -3,8 +3,8 @@
 import numpy as np
 import xtools as xt
 import xtools.simulation as xs
-from xaircraft.models.base import BaseModel
-# from xtools.simulation.models.model import DefaultModel
+# from xaircraft.models.base import BaseModel
+from xtools.simulation.models.model import BaseModel
 
 
 class Filter1st(BaseModel):
