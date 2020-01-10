@@ -3,11 +3,11 @@
 import numpy as np
 import xtools as xt
 import xtools.simulation as xs
-# from xaircraft.models.base import BaseModel
-from xtools.simulation.models.model import DefaultModel
+from xaircraft.models.base import BaseModel
+# from xtools.simulation.models.model import DefaultModel
 
 
-class Filter1st(DefaultModel):
+class Filter1st(BaseModel):
 
     def __init__(self, dt, tau, init_value=0.0, name="Filter1st"):
         super().__init__(dt, name=name)
@@ -34,7 +34,7 @@ class Filter1st(DefaultModel):
         return np.array([self._x, self._dx])
 
 
-class Filter2nd(DefaultModel):
+class Filter2nd(BaseModel):
 
     def __init__(self, dt, tau, init_value=0.0, name="Filter2nd", **kwargs):
         super().__init__(dt, name=name, **kwargs)

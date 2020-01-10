@@ -1,14 +1,13 @@
 # coding: utf-8
 
 import numpy as np
-import tensorflow as tf
 import xtools as xt
 from xtools import simulation as xsim
 from xtools.simulation.models.model import *
 tk = tf.keras
 
 
-class Vehicle(DefaultModel):
+class Vehicle(BaseModel):
     """
     Implementation of a linear model of a ground vehicle in x-y world.
     Motion is represented with the forward velocity v(t), and heading angle theta(t), and the position (x, y).
