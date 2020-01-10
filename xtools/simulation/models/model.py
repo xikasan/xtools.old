@@ -4,8 +4,6 @@ import gym
 import numpy as np
 from cached_property import cached_property
 
-tk = tf.keras
-
 
 class BaseModel:
 
