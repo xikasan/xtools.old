@@ -3,3 +3,8 @@ __pycache__/
 
 memo/
 results/
+
+# build
+build/
+dist/
+xtools.egg-info/
