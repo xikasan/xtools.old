@@ -28,7 +28,7 @@ def join(*args):
 def makedirs(path, exist_ok=False):
     if not exist_ok and not os.path.exists(path):
         raise FileExistsError
-    os.makedirs(path, mode=0o666, exist_ok=exist_ok)
+    os.makedirs(path, exist_ok=exist_ok)
 
 
 def generate_time_dir_path(path=None, format="%Y.%m.%d.%H%M%S"):
