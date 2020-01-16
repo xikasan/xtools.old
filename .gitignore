@@ -1,4 +1,10 @@
 __pycache__/
 .idea/
 
+memo/
 results/
+
+# build
+build/
+dist/
+xtools.egg-info/
