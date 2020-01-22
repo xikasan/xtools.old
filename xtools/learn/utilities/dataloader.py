@@ -44,17 +44,18 @@ class DataLoader:
             self.load_from_directory(directory_name)
         else:
             raise ValueError("file_name or directory_name must be given")
-        self._size = len(self._data[list(self._data.keys())[0]])
-        self._indices = list(range(self._size))
+        self.size = len(self._data[list(self._data.keys())[0]])
+        self._indices = list(range(self.size))
         self._current = 0
 
     def __iter__(self):
+        self._current = 0
         if self._at_random:
             np.random.shuffle(self._indices)
         return self
 
     def __next__(self):
-        if self._current >= self._size:
+        if self._current >= self.size:
             raise StopIteration
         idx = self._indices[self._current:self._current+self._batch_size]
         self._current += self._batch_size
@@ -62,6 +63,9 @@ class DataLoader:
         for key, vals in self._data.items():
             batch.set(key, vals[idx])
         return batch
+
+    def __len__(self):
+        return int(self.size / self._batch_size + 1)
 
     def load_from_file(self, file_name):
         data = pd.read_csv(file_name, header=self._header)

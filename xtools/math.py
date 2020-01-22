@@ -45,17 +45,17 @@ def round(x, d=0):
 
 
 # numpy
-def as_ndarray(target):
+def as_ndarray(target, dtype=np.float32):
     if isinstance(target, np.ndarray):
-        return target
+        return target.astype(dtype)
 
     if isinstance(target, list) or isinstance(target, tuple):
-        return np.array(target)
+        return np.array(target).astype(dtype)
 
     if isinstance(target, dict):
-        return np.array(list(target.values))
+        return np.array(list(target.values)).astype(dtype)
 
     if not hasattr(target, "__len__"):
-        return np.array([target])
+        return np.array([target]).astype(dtype)
 
     raise ValueError("Not supported type")
