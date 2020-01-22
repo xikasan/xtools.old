@@ -101,6 +101,9 @@ class Vehicle(BaseModel):
     def get_state(self):
         return self._x
 
+    def get_obs(self):
+        return self.get_state()
+
     @staticmethod
     def __round_theta(theta):
         if theta > np.pi:
