@@ -1,9 +1,7 @@
 # coding: utf-8
 
 import numpy as np
-import xtools as xt
-import xtools.simulation as xs
-# from xaircraft.models.base import BaseModel
+from xtools.simulation.rungekutta import *
 from xtools.simulation.models.model import BaseModel
 
 
@@ -18,7 +16,7 @@ class Filter1st(BaseModel):
 
     def __call__(self, source):
         fn = lambda x: (source - self._x) / self.tau
-        self._dx = xs.no_time_rungekutta(fn, self.dt, self._x)
+        self._dx = no_time_rungekutta(fn, self.dt, self._x)
         self._x += self._dx * self.dt
         return self.get_state()
 
@@ -46,7 +44,7 @@ class Filter2nd(BaseModel):
 
     def __call__(self, source):
         fn = lambda x: x.dot(self._A) + source * self._B
-        self._dx = xs.no_time_rungekutta(fn, self.dt, self._x)
+        self._dx = no_time_rungekutta(fn, self.dt, self._x)
         self._x += self.dt * self._dx
         return self.get_state()
 

@@ -69,8 +69,8 @@ class Vehicle(BaseModel):
         return np.concatenate([position, vT], axis=0)
 
     def __construct_params(self):
-        av = 1 / self._tau_v if not self._tau_v < 1e-5 else 1e+5
-        aT = 1 / self._tau_T if not self._tau_T < 1e-5 else 1e+5
+        av = 1 / self._tau_v if not self._tau_v < 1e-5 else 1e-5
+        aT = 1 / self._tau_T if not self._tau_T < 1e-5 else 1e-5
 
         def A(T):
             cos = np.cos(T)
@@ -100,6 +100,9 @@ class Vehicle(BaseModel):
 
     def get_state(self):
         return self._x
+
+    def get_obs(self):
+        return self.get_state()
 
     @staticmethod
     def __round_theta(theta):
