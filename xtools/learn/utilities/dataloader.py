@@ -86,6 +86,7 @@ class DataLoader:
         with open(data_list, "r") as fp:
             data = fp.readlines()
         data = [d.strip() for d in data]
+        data = list(filter(lambda x: not x == "", data))
         data = [pd.read_csv(d, header=self._header) for d in data]
         data = pd.concat(data, axis=0, ignore_index=True)
         self._data = {key: val.values for key, val in data.iteritems()}
