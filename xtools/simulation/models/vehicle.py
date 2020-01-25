@@ -4,7 +4,6 @@ import numpy as np
 import xtools as xt
 from xtools import simulation as xsim
 from xtools.simulation.models.model import *
-tk = tf.keras
 
 
 class Vehicle(BaseModel):
