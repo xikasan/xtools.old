@@ -31,6 +31,7 @@ class DataLoader:
                  at_random=True,
                  file_name=None,
                  directory_name=None,
+                 list_name=None,
                  exist_header=True,
                  dtype=np.float32):
         self.dtype = dtype
@@ -42,11 +43,14 @@ class DataLoader:
             self.load_from_file(file_name)
         elif directory_name is not None:
             self.load_from_directory(directory_name)
+        elif list_name is not None:
+            self.load_from_list(list_name)
         else:
-            raise ValueError("file_name or directory_name must be given")
+            raise ValueError("file_name or directory_name or list_name must be given")
         self.size = len(self._data[list(self._data.keys())[0]])
         self._indices = list(range(self.size))
         self._current = 0
+        self._num_batch = np.ceil(self.size / self._batch_size)
 
     def __iter__(self):
         self._current = 0
@@ -65,7 +69,7 @@ class DataLoader:
         return batch
 
     def __len__(self):
-        return int(self.size / self._batch_size + 1)
+        return self._num_batch
 
     def load_from_file(self, file_name):
         data = pd.read_csv(file_name, header=self._header)
@@ -74,6 +78,14 @@ class DataLoader:
     def load_from_directory(self, directory_name):
         data = Path(directory_name).glob("*.csv")
         data = [str(d) for d in data]
+        data = [pd.read_csv(d, header=self._header) for d in data]
+        data = pd.concat(data, axis=0, ignore_index=True)
+        self._data = {key: val.values for key, val in data.iteritems()}
+
+    def load_from_list(self, data_list):
+        with open(data_list, "r") as fp:
+            data = fp.readlines()
+        data = [d.strip() for d in data]
         data = [pd.read_csv(d, header=self._header) for d in data]
         data = pd.concat(data, axis=0, ignore_index=True)
         self._data = {key: val.values for key, val in data.iteritems()}
