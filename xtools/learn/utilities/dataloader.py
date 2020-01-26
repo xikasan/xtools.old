@@ -50,7 +50,7 @@ class DataLoader:
         self.size = len(self._data[list(self._data.keys())[0]])
         self._indices = list(range(self.size))
         self._current = 0
-        self._num_batch = np.ceil(self.size / self._batch_size)
+        self._num_batch = int(np.ceil(self.size / self._batch_size))
 
     def __iter__(self):
         self._current = 0
