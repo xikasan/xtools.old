@@ -21,3 +21,8 @@ class Config:
             if isinstance(val, dict):
                 val = Config(val)
             self.__setattr__(key, val)
+
+    def dump(self, file_name):
+        with open(file_name, "w") as fp:
+            yaml.safe_dump(self._cf, fp)
+        print("[info] save config file as", file_name)
