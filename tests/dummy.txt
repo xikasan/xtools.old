@@ -1,0 +1,5 @@
+/Users/yoshikawa/workspace/deepfly/results/nedo/2.fail_learning/normal/2020.01.26.073450/result_000.csv
+/Users/yoshikawa/workspace/deepfly/results/nedo/2.fail_learning/normal/2020.01.26.073450/result_001.csv
+
+/Users/yoshikawa/workspace/deepfly/results/nedo/2.fail_learning/normal/2020.01.26.073450/result_002.csv
+/Users/yoshikawa/workspace/deepfly/results/nedo/2.fail_learning/normal/2020.01.26.073450/result_003.csv

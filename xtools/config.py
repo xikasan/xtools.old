@@ -26,3 +26,6 @@ class Config:
         with open(file_name, "w") as fp:
             yaml.safe_dump(self._cf, fp)
         print("[info] save config file as", file_name)
+
+    def set(self, key, value):
+        self.__setattr__(key, value)
