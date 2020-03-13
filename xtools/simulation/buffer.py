@@ -182,3 +182,26 @@ class Retriever:
         if idx is None:
             return np.squeeze(temp)
         return np.squeeze(temp[:, idx])
+
+
+class SimpleReplayBuffer:
+
+    def __init__(self):
+        self.storage = []
+
+    def add(self, data):
+        self.storage.append(data)
+
+    def sample(self, batch_size=100):
+        idxs = np.random.randint(0, len(self.storage), batch_size)
+        x, u, y, r, d = [], [], [], [], []
+
+        for i in idxs:
+            X, U, Y, R, D = self.storage[i]
+            x.append(np.array(X, copy=False))
+            u.append(np.array(U, copy=False))
+            y.append(np.array(Y, copy=False))
+            r.append(np.array(R, copy=False))
+            d.append(np.array(D, copy=False))
+
+        return np.array(X), np.array(U), np.array(Y), np.array(R).reshape(-1, 1), np.array(D).reshape(-1, 1),

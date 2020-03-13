@@ -11,7 +11,7 @@ with open('LICENSE') as f:
 
 setup(
     name='xtools',
-    version='0.2.1',
+    version='0.2.2',
     description="xikasan's basic tool set",
     long_description=readme,
     author='xikasan',
