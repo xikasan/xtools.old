@@ -49,16 +49,20 @@ class RandomRectangularCommand(BaseCommand):
 
     def __call__(self, time):
         if time >= self._next_time:
-            self._amplitude = (np.random.rand() * 2 - 1) * self._max_amplitude
+            self._generate_next_target()
             self._generate_next_time()
         return self._amplitude
 
     def _generate_next_time(self):
         self._next_time += -np.log(1 - np.random.rand()) / self._rate
 
+    def _generate_next_target(self):
+        self._amplitude = (np.random.rand() * 2 - 1) * self._max_amplitude
+
     def reset(self):
         self._next_time = 0.0
         self._generate_next_time()
+        self._generate_next_target()
 
 
 if __name__ == '__main__':
