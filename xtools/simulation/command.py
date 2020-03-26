@@ -56,6 +56,10 @@ class RandomRectangularCommand(BaseCommand):
     def _generate_next_time(self):
         self._next_time += -np.log(1 - np.random.rand()) / self._rate
 
+    def reset(self):
+        self._next_time = 0.0
+        self._generate_next_time()
+
 
 if __name__ == '__main__':
     dt = 0.1
